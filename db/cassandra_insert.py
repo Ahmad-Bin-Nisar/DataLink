@@ -18,4 +18,4 @@ for i in range(10):
         VALUES (%s, %s, %s)
     """, (user_id, timestamp, action))
 
-print(" 10 user activity logs inserted into Cassandra.")
+print("10 user activity logs inserted into Cassandra.")
