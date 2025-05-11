@@ -12,7 +12,7 @@ producer = KafkaProducer(
 with open('E:/Bigdata_project/Datasets/5000000_user_interactions.json', 'r') as file:
     data = json.load(file)
 
-print(f"📦 Total interactions to send: {len(data)}")
+print(f"Total interactions to send: {len(data)}")
 
 # Send interactions to Kafka topic 'user_interactions'
 for i, interaction in enumerate(data):
@@ -21,16 +21,16 @@ for i, interaction in enumerate(data):
         
         # Log progress every 10,000 messages
         if i % 10000 == 0:
-            print(f"✅ Sent {i} interactions...")
+            print(f"Sent {i} interactions...")
 
     except Exception as e:
-        print(f"❌ Error sending interaction {i}: {e}")
+        print(f"Error sending interaction {i}: {e}")
 
 # Finalize
 producer.flush()
 producer.close()
 
-print("✅ All messages sent successfully.")
+print("All messages sent successfully.")
 
 
 producer = KafkaProducer(
