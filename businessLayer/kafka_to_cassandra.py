@@ -23,7 +23,7 @@ insert_query = session.prepare("""
     VALUES (?, ?, ?, ?, ?)
 """)
 
-print("🔄 Kafka → Cassandra consumer is now listening...")
+print("Kafka → Cassandra consumer is now listening...")
 
 try:
     while True:
@@ -31,24 +31,24 @@ try:
         if msg is None:
             continue
         if msg.error():
-            print(f"❌ Kafka error: {msg.error()}")
+            print(f"Kafka error: {msg.error()}")
             continue
 
         try:
             record = json.loads(msg.value().decode('utf-8'))
 
-            print("📥 Received record:", record)
+            print("Received record:", record)
 
             required_fields = ['user_id', 'timestamp', 'action_type']
             if not all(field in record for field in required_fields):
-                print(f"⚠️ Skipped malformed record: {record}")
+                print(f"Skipped malformed record: {record}")
                 continue
 
             # Parse timestamp
             try:
                 ts = datetime.fromisoformat(record['timestamp'])
             except Exception:
-                print(f"⚠️ Invalid timestamp format: {record['timestamp']}")
+                print(f"Invalid timestamp format: {record['timestamp']}")
                 continue
 
             session.execute(insert_query, (
@@ -59,14 +59,14 @@ try:
                 record.get('target_id', '')
             ))
 
-            print(f"✅ Inserted: {record['user_id']} | {record['action_type']}")
+            print(f"Inserted: {record['user_id']} | {record['action_type']}")
 
         except Exception as e:
-            print(f"⚠️ Insert failed: {e}")
+            print(f"Insert failed: {e}")
 
 except KeyboardInterrupt:
-    print("🛑 Stopping consumer...")
+    print("Stopping consumer...")
 finally:
     consumer.close()
     cluster.shutdown()
-    print("✅ Kafka consumer closed and Cassandra connection shut down.")
+    print("Kafka consumer closed and Cassandra connection shut down.")
