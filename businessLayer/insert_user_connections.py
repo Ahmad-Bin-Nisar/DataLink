@@ -36,7 +36,7 @@ def insert_user_connections(json_file):
     conn.commit()
     cursor.close()
     conn.close()
-    print("✅ User connections inserted successfully.")
+    print("User connections inserted successfully.")
 
 # Run
 if __name__ == "__main__":
