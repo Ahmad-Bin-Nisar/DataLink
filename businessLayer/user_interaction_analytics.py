@@ -4,7 +4,7 @@ from collections import defaultdict
 cluster = Cluster(['127.0.0.1'], port=9042)
 session = cluster.connect('datalink')
 
-print("🔍 Fetching user interactions from Cassandra...")
+print("Fetching user interactions from Cassandra...")
 
 rows = session.execute("SELECT user_id FROM user_interactions")
 
@@ -14,9 +14,9 @@ for row in rows:
 
 top_users = sorted(counter.items(), key=lambda x: x[1], reverse=True)[:20]
 
-print("\n🏆 Top 10 Most Active Users:")
+print("\nTop 10 Most Active Users:")
 for rank, (user_id, count) in enumerate(top_users, start=1):
     print(f"{rank}. {user_id}: {count} interactions")
 
 cluster.shutdown()
-print("✅ Cassandra connection closed.")
+print("Cassandra connection closed.")
