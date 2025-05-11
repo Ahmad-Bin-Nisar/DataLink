@@ -11,9 +11,9 @@ def get_user_profiles_collection():
 
     if collection_name not in db.list_collection_names():
         db.create_collection(collection_name)
-        print(f"✅ Collection '{collection_name}' created.")
+        print(f"Collection '{collection_name}' created.")
     else:
-        print(f"ℹ️ Collection '{collection_name}' already exists.")
+        print(f"Collection '{collection_name}' already exists.")
 
     return db[collection_name]
 
@@ -28,7 +28,7 @@ def insert_user_data(json_path):
     else:
         collection.insert_one(data)
 
-    print("✅ User profiles inserted successfully.")
+    print("User profiles inserted successfully.")
 
 def link_user_media(media_folder):
     collection = get_user_profiles_collection()
@@ -49,9 +49,9 @@ def link_user_media(media_folder):
 
         result = collection.update_one({"user_id": user_id}, update)
         if result.modified_count:
-            print(f"✅ Linked media to {user_id}: {filename}")
+            print(f"Linked media to {user_id}: {filename}")
         else:
-            print(f"⚠️ No match found for {user_id}")
+            print(f"No match found for {user_id}")
 
 #if __name__ == "__main__":
     
@@ -62,10 +62,10 @@ if __name__ == "__main__":
     client = pymongo.MongoClient(MONGO_URI)
     db = client["datalink"]
     collection = db["user_profiles"]
-
+    
     result = collection.update_many(
         {"password": {"$exists": False}},
         {"$set": {"password": "1234"}}
     )
 
-    print(f"✅ Updated {result.modified_count} documents.")
+    print(f"Updated {result.modified_count} documents.")
