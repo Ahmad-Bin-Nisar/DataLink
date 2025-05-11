@@ -28,7 +28,7 @@ def create_interaction(interaction: Interaction):
         interaction.action_type,
         interaction.target_id
     ))
-    return {"message": "✅ Interaction added successfully"}
+    return {"message": "Interaction added successfully"}
 
 # --- Get interactions by user ---
 @app.get("/api/interactions/{user_id}")
