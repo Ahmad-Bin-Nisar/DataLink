@@ -49,13 +49,13 @@ consumer = KafkaConsumer(
 mongo = MongoClient("mongodb://localhost:27017/")
 collection = mongo["linkedin_clone"]["user_profiles"]
 
-print("👂 Listening for profile updates...")
+print("Listening for profile updates...")
 
 for msg in consumer:
     data = msg.value
-    print("🔁 Updating user:", data["user_id"])
+    print("Updating user:", data["user_id"])
     result = collection.update_one(
         {"user_id": data["user_id"]},
         {"$set": data["updated_fields"]}
     )
-    print("✅ Update complete")
+    print("Update complete")
